@@ -34,6 +34,21 @@ Open the URL shown (default `http://localhost:8501`). The app runs without `.env
 
 **After changing `.env`:** Restart the Streamlit process so new values are loaded.
 
+## Deploy on Streamlit Community Cloud
+
+1. **One-click deploy**  
+   [![Deploy](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=duttaneha201-ux/Voice-first-AI-travel-planning-assistant-)
+
+2. **Or deploy manually**
+   - Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub.
+   - Click **New app** and choose repo: `duttaneha201-ux/Voice-first-AI-travel-planning-assistant-`, branch `main`.
+   - Set **Main file path** to: `travel-planner/app.py`.
+   - Click **Advanced settings** and set **Working directory** to: `travel-planner` (if shown).
+   - Deploy. The app will use `travel-planner/requirements.txt` automatically.
+
+3. **Secrets (optional)**  
+   In the app’s **Settings → Secrets**, add the same keys you use in `.env` (e.g. `GROK_API_KEY`, `GROQ_API_KEY`, `N8N_WEBHOOK_URL`). Without secrets, POI search and RAG still work; add keys when you want Grok/Groq or n8n.
+
 ## Environment variables
 
 | Variable | Description |
