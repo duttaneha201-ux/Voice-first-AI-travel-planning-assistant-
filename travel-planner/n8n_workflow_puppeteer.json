@@ -1,0 +1,223 @@
+{
+  "name": "Udaipur Travel Planner Export (Puppeteer)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "udaipur-travel-export",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "udaipur-travel-export"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.body.options.generate_pdf }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-pdf-node",
+      "name": "IF: Generate PDF?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "html": "={{ $json.body.itinerary.html_content || $json.body.html_content }}",
+        "options": {
+          "format": "A4",
+          "landscape": false,
+          "margin": {
+            "top": "1cm",
+            "right": "1cm",
+            "bottom": "1cm",
+            "left": "1cm"
+          }
+        }
+      },
+      "id": "puppeteer-node",
+      "name": "Puppeteer PDF",
+      "type": "n8n-nodes-base.puppeteer",
+      "typeVersion": 1,
+      "position": [650, 200],
+      "notes": "Converts HTML to PDF using Puppeteer. Alternative to HTML to PDF node."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.body.options.send_email }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            },
+            {
+              "id": "condition-2",
+              "leftValue": "={{ $json.body.email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isNotEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-email-node",
+      "name": "IF: Send Email?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "fromEmail": "yourname@gmail.com",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "={{ 'Udaipur Travel Itinerary - ' + ($json.body.itinerary.metadata.duration_days || 'Your') + ' Days' }}",
+        "emailType": "html",
+        "message": "={{ $json.body.itinerary.html_content || $json.body.html_content }}",
+        "attachments": "={{ $json.binary.data }}",
+        "options": {}
+      },
+      "id": "email-send-node",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1050, 100],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-credential-id",
+          "name": "SMTP Account"
+        }
+      },
+      "notes": "Configure SMTP credentials: Click 'Create New Credential' → Select 'SMTP' → Fill in your email settings (Gmail: smtp.gmail.com, port 587, TLS)"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": true, \"message\": \"Itinerary processed successfully\", \"pdf_generated\": $json.body.options.generate_pdf || false, \"email_sent\": ($json.body.options.send_email && $json.body.email) || false } }}",
+        "options": {}
+      },
+      "id": "respond-webhook-node",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 200]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "IF: Generate PDF?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Generate PDF?": {
+      "main": [
+        [
+          {
+            "node": "Puppeteer PDF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Puppeteer PDF": {
+      "main": [
+        [
+          {
+            "node": "IF: Send Email?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Send Email?": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-25T00:00:00.000Z",
+  "versionId": "1"
+}

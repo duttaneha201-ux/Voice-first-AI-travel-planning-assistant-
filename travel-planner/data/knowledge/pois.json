@@ -1,0 +1,22 @@
+[
+  {"name": "City Palace", "type": "heritage", "lat": 24.576, "lon": 73.683, "duration_hours": 3, "best_time": "morning", "indoor": true, "cost_inr": 300, "notes": "Largest palace in Rajasthan"},
+  {"name": "Lake Palace", "type": "heritage", "lat": 24.572, "lon": 73.679, "duration_hours": 2, "best_time": "evening", "indoor": true, "cost_inr": 0, "notes": "Palace on island; access via boat or dining"},
+  {"name": "Jagdish Temple", "type": "heritage", "lat": 24.577, "lon": 73.684, "duration_hours": 1, "best_time": "morning", "indoor": true, "cost_inr": 0, "notes": "Iconic Hindu temple near City Palace"},
+  {"name": "Bagore ki Haveli", "type": "heritage", "lat": 24.578, "lon": 73.682, "duration_hours": 2, "best_time": "evening", "indoor": true, "cost_inr": 100, "notes": "Restored haveli with museum and cultural shows"},
+  {"name": "Monsoon Palace", "type": "heritage", "lat": 24.535, "lon": 73.642, "duration_hours": 2, "best_time": "sunset", "indoor": true, "cost_inr": 80, "notes": "Hilltop palace with panoramic views"},
+  {"name": "Ambrai Restaurant", "type": "food", "lat": 24.576, "lon": 73.681, "duration_hours": 1.5, "best_time": "evening", "indoor": false, "cost_inr": 1200, "notes": "Lakeside dining with palace views"},
+  {"name": "Raas rooftop", "type": "food", "lat": 24.574, "lon": 73.680, "duration_hours": 1.5, "best_time": "evening", "indoor": false, "cost_inr": 1500, "notes": "Rooftop restaurant and bar"},
+  {"name": "Upre by 1559 AD", "type": "food", "lat": 24.575, "lon": 73.682, "duration_hours": 1.5, "best_time": "lunch", "indoor": true, "cost_inr": 800, "notes": "Heritage setting, Rajasthani and Indian"},
+  {"name": "Jheel's Ginger Coffee Bar", "type": "food", "lat": 24.577, "lon": 73.683, "duration_hours": 1, "best_time": "morning", "indoor": true, "cost_inr": 400, "notes": "Cafe by the lake"},
+  {"name": "Millets of Mewar", "type": "food", "lat": 24.576, "lon": 73.684, "duration_hours": 1, "best_time": "lunch", "indoor": true, "cost_inr": 350, "notes": "Healthy, organic-focused meals"},
+  {"name": "Lake Pichola", "type": "nature", "lat": 24.571, "lon": 73.678, "duration_hours": 2, "best_time": "sunset", "indoor": false, "cost_inr": 500, "notes": "Boat rides and lake views"},
+  {"name": "Saheliyon ki Bari", "type": "nature", "lat": 24.595, "lon": 73.690, "duration_hours": 1.5, "best_time": "morning", "indoor": false, "cost_inr": 50, "notes": "Gardens with fountains and lotus pools"},
+  {"name": "Fateh Sagar Lake", "type": "nature", "lat": 24.602, "lon": 73.675, "duration_hours": 2, "best_time": "evening", "indoor": false, "cost_inr": 0, "notes": "Scenic lake; promenade and boat rides"},
+  {"name": "Bharatiya Lok Kala Mandal", "type": "culture", "lat": 24.578, "lon": 73.686, "duration_hours": 1.5, "best_time": "afternoon", "indoor": true, "cost_inr": 100, "notes": "Folk art and puppet museum"},
+  {"name": "Shilpgram", "type": "culture", "lat": 24.538, "lon": 73.688, "duration_hours": 2, "best_time": "morning", "indoor": false, "cost_inr": 50, "notes": "Rural arts and crafts village"},
+  {"name": "Dharohar Museum", "type": "culture", "lat": 24.577, "lon": 73.683, "duration_hours": 1, "best_time": "afternoon", "indoor": true, "cost_inr": 80, "notes": "Cultural exhibits and performances"},
+  {"name": "Hathi Pol Bazaar", "type": "shopping", "lat": 24.579, "lon": 73.685, "duration_hours": 2, "best_time": "morning", "indoor": false, "cost_inr": 0, "notes": "Traditional market near City Palace"},
+  {"name": "Bada Bazaar", "type": "shopping", "lat": 24.580, "lon": 73.686, "duration_hours": 1.5, "best_time": "morning", "indoor": false, "cost_inr": 0, "notes": "Local market for textiles and crafts"},
+  {"name": "Chetak Circle area", "type": "shopping", "lat": 24.592, "lon": 73.698, "duration_hours": 2, "best_time": "afternoon", "indoor": false, "cost_inr": 0, "notes": "Shops and malls near Chetak Circle"},
+  {"name": "Lake Palace Road boutiques", "type": "shopping", "lat": 24.574, "lon": 73.681, "duration_hours": 1.5, "best_time": "evening", "indoor": false, "cost_inr": 0, "notes": "Upscale handicrafts and souvenirs"}
+]
