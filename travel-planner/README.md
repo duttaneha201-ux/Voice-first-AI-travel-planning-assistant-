@@ -36,17 +36,22 @@ Open the URL shown (default `http://localhost:8501`). The app runs without `.env
 
 ## Deploy on Streamlit Community Cloud
 
-1. **One-click deploy**  
-   [![Deploy](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=duttaneha201-ux/Voice-first-AI-travel-planning-assistant-)
+**If the “Continue to sign-in” button on the deploy page doesn’t work**, sign in first, then create the app:
 
-2. **Or deploy manually**
-   - Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub.
-   - Click **New app** and choose repo: `duttaneha201-ux/Voice-first-AI-travel-planning-assistant-`, branch `main`.
-   - Set **Main file path** to: `travel-planner/app.py`.
-   - Click **Advanced settings** and set **Working directory** to: `travel-planner` (if shown).
-   - Deploy. The app will use `travel-planner/requirements.txt` automatically.
+1. Open **[share.streamlit.io](https://share.streamlit.io)** (main page, not the deploy link).
+2. Click **Sign in** (top right) and sign in with **GitHub** (or Google / email).
+3. After signing in, click **New app**.
+4. Choose repository: `duttaneha201-ux/Voice-first-AI-travel-planning-assistant-`, branch `main`.
+5. Set **Main file path** to: `travel-planner/app.py`.
+6. In **Advanced settings**, set **Working directory** to: `travel-planner` (if shown).
+7. Click **Deploy**. The app will use `travel-planner/requirements.txt` automatically.
 
-3. **Secrets (optional)**  
+**One-click deploy** (use only if sign-in works for you):  
+[![Deploy](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=duttaneha201-ux/Voice-first-AI-travel-planning-assistant-)
+
+**Sign-in issues:** Try the top-right **Sign in** link instead of the blue button; use a normal (non-incognito) window and allow cookies for `share.streamlit.io`. If you get a 403, see [Streamlit’s troubleshooting](https://docs.streamlit.io/knowledge-base/deploy/login-attempt-to-streamlit-community-cloud-fails-with-error-403) or contact support@streamlit.io.
+
+**Secrets (optional)**  
    In the app’s **Settings → Secrets**, add the same keys you use in `.env` (e.g. `GROK_API_KEY`, `GROQ_API_KEY`, `N8N_WEBHOOK_URL`). Without secrets, POI search and RAG still work; add keys when you want Grok/Groq or n8n.
 
 ## Environment variables
@@ -96,6 +101,7 @@ travel-planner/
 ## Running tests
 
 ```bash
+pip install -r requirements-dev.txt   # includes pytest
 pytest tests/
 # or
 python -m pytest tests/
