@@ -1,0 +1,102 @@
+# Udaipur Travel Planner
+
+Voice-first AI travel planning assistant for Udaipur. Streamlit app with Grok/Groq LLM, MCP tools (POI search, itinerary builder, travel calculator), file-based RAG, and optional n8n automation.
+
+## Features
+
+- **Voice + text input** — Browser mic (Streamlit mic recorder) or chat
+- **LLM** — Grok API (xAI) or Groq (Llama) with function calling
+- **POIs** — Overpass API (live) + static `data/knowledge/` (guide, tips, `pois.json`)
+- **RAG** — File-based retrieval (no vector DB)
+- **Tools** — POI search, itinerary builder, travel time/distance
+- **Evaluations** — Feasibility, grounding, edit correctness (in-app)
+- **Optional** — n8n webhook for PDF/email
+
+## Requirements
+
+- Python 3.10+
+- See `requirements.txt`
+
+## Quick start
+
+```bash
+cd travel-planner
+python -m venv venv
+venv\Scripts\activate   # Windows
+# source venv/bin/activate   # macOS/Linux
+pip install -r requirements.txt
+cp .env.example .env
+# Edit .env: set GROK_API_KEY or GROQ_API_KEY (and optionally N8N_WEBHOOK_URL)
+streamlit run app.py
+```
+
+Open the URL shown (default `http://localhost:8501`). The app runs without `.env` for POI search and RAG; add keys when you use Grok/Groq or n8n.
+
+**After changing `.env`:** Restart the Streamlit process so new values are loaded.
+
+## Environment variables
+
+| Variable | Description |
+|----------|-------------|
+| `LLM_PROVIDER` | `grok` (default) or `groq` |
+| `GROK_API_KEY` | xAI API key (when using Grok) |
+| `GROQ_API_KEY` | Groq API key (when using Groq) |
+| `N8N_WEBHOOK_URL` | Optional n8n webhook for PDF/email |
+
+Copy `.env.example` to `.env` and fill in the keys you need.
+
+## Project structure
+
+```
+travel-planner/
+├── app.py                 # Streamlit entry point
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── README.md
+├── CURSOR_MCP_SETUP.md    # Optional: Cursor + n8n MCP setup
+├── N8N_IMPORT_WORKFLOW.md # Optional: Import n8n workflows
+├── n8n_workflow.json      # Optional: n8n workflow template
+├── n8n_workflow_puppeteer.json
+├── verify_n8n_mcp.py      # Optional: Verify n8n MCP
+├── src/
+│   ├── ui/                # Itinerary display, follow-ups
+│   ├── orchestration/     # Conversation manager, Grok client
+│   ├── domains/mcp/       # MCP tools + registry (POI, itinerary, travel calc)
+│   ├── infrastructure/    # Overpass client, POI repo, RAG knowledge base
+│   ├── services/rag/      # RAG retriever
+│   ├── data/              # Re-exports (Overpass, POI repo) for compatibility
+│   ├── mcp/               # Re-exports (MCP registry/tools) for compatibility
+│   ├── rag/               # Re-exports (knowledge base, retriever)
+│   ├── evaluations/       # Feasibility, grounding, edit correctness
+│   ├── automation/        # n8n client
+│   ├── utils/             # Config, logger, link generator
+│   └── __init__.py
+├── data/
+│   ├── knowledge/         # udaipur_guide.txt, udaipur_tips.txt, pois.json
+│   └── cache/             # Overpass cache (gitkept, cache files ignored)
+└── tests/
+```
+
+## Running tests
+
+```bash
+pytest tests/
+# or
+python -m pytest tests/
+```
+
+## MCP tools
+
+- **poi_search** — Search POIs by city, interests (food, heritage, etc.), and constraints.
+- **itinerary_builder** — Build day-by-day itineraries from POIs and preferences.
+- **travel_calculator** — Estimate travel time and distance between points.
+
+## Data
+
+- **Overpass API** — Live POIs; results cached under `data/cache/`.
+- **data/knowledge/** — Static `udaipur_guide.txt`, `udaipur_tips.txt`, `pois.json`.
+
+## License
+
+MIT.
